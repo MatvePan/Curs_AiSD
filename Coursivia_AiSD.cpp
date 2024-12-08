@@ -73,6 +73,7 @@ public:
 		}
 		array_i[index] = 0;
 		array[index].clear();
+		count--;
 	}
 
 	Services* getArray() { //Вывод массива
@@ -103,7 +104,7 @@ public:
 			}
 			index = (int)pow(index, 2) % SIZE;
 		}
-		throw exception("No element");
+		throw exception("Элемент не найден");
 	}
 
 	Services& findByName(string subname) { //Поиск по фрагменту
@@ -112,7 +113,7 @@ public:
 				return array[index];
 			}
 		}
-		throw exception("No element");
+		throw exception("Элемент не найден");
 	}
 };
 
