@@ -1,5 +1,6 @@
 ﻿#include <iostream>
 #include <string>
+#include <vector>
 using namespace std;
 
 #define SIZE 100
@@ -22,18 +23,41 @@ private:
 	int count = 0;
 	Services array[SIZE];
 	int array_i[SIZE]{ 0 };
+	bool array_del[SIZE]{ 0 };
 
 	int getIndex(string data) {
 		string key = data.substr(1, 2);
-		double a = stoi(key) * 3.1415926535;
+		double a = stoi(key) * 0.31415926535;
 		return (int)(SIZE * (a - (long)a));
 	}
 
-	int KMP(string subname, string name) {
-		for (int i = 0; name[i]; i++) {
-			for (int j = 0;; j++) {
-				if (!subname[j]) return i;
-				if (name[i + j] != subname[j])break;
+	// Функция построения массива префиксов
+	vector<int> build_prefix(const string& pattern) {
+		int m = pattern.size();
+		vector<int> prefix(m, 0);
+		int k = 0;
+		for (int q = 1; q < m; ++q) {
+			while (k > 0 && pattern[k] != pattern[q])
+				k = prefix[k - 1];
+			if (pattern[k] == pattern[q])
+				++k;
+			prefix[q] = k;
+		}
+		return prefix;
+	}
+
+	int KMP(const string& pattern, const string& text) {
+		int n = text.size(), m = pattern.size();
+		if (m == 0) return -1;
+		vector<int> prefix = build_prefix(pattern);
+		int q = 0;
+		for (int i = 0; i < n; ++i) {
+			while (q > 0 && pattern[q] != text[i])
+				q = prefix[q - 1];
+			if (pattern[q] == text[i])
+				++q;
+			if (q == m) {
+				return i - m + 1;
 			}
 		}
 		return -1;
@@ -47,7 +71,7 @@ public:
 	void add(Services data) { //Добавление услуги
 		int index = getIndex(data.TNN), i = 1;
 		while (array_i[index]) {
-			index = (int)pow(index, 2) % SIZE;
+			index = (index + i + i * i) % SIZE;
 			i++;
 			if (i == 5) {
 				throw exception("Hashtable is full");
@@ -55,24 +79,26 @@ public:
 		}
 		array[index] = data;
 		array_i[index] = i;
+		array_del[index] = 0;
 		count++;
 	}
 
 	void remove(string TNN) { //Удаление элемента
 		int index = getIndex(TNN);
 		bool found = 0;
-		for (int i = 0; i < 4; i++) {
+		for (int i = 0; i < 5; i++) {
 			if (array[index].TNN == TNN) {
 				found = 1;
 				break;
 			}
-			index = (int)pow(index, 2) % SIZE;
+			index = (index + i + i * i) % SIZE;
 		}
 		if (!found) {
 			throw exception("Элемент не найден\n");
 		}
 		array_i[index] = 0;
 		array[index].clear();
+		array_del[index] = 1;
 		count--;
 	}
 
@@ -92,24 +118,25 @@ public:
 		for (int i = 0; i < SIZE; i++) {
 			array[i].clear();
 			array_i[i] = 0;
+			array_del[i] = 0;
 		}
 		count = 0;
 	}
 
 	Services& find(string TNN) { //Поиск по коду услуги
 		int index = getIndex(TNN);
-		for (int i = 0; i < 4; i++) {
-			if (array[index].TNN == TNN) {
+		for (int i = 0; i < 5; i++) {
+			if (!array_del[index] && array[i].TNN == TNN) {
 				return array[index];
 			}
-			index = (int)pow(index, 2) % SIZE;
+			index = (index + i + i * i) % SIZE;
 		}
 		throw exception("Элемент не найден");
 	}
 
 	Services& findByName(string subname) { //Поиск по фрагменту
 		for (int index = 0; index < SIZE; index++) {
-			if (KMP(subname, array[index].name) != -1) {
+			if (array[index].name != "" && KMP(subname, array[index].name) != -1) {
 				return array[index];
 			}
 		}

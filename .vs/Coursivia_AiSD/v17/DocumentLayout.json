@@ -1,0 +1,37 @@
+{
+  "Version": 1,
+  "WorkspaceRootPath": "C:\\Users\\Melifest\\Documents\\GitHub\\Curs_AiSD\\",
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{C3CEEA25-EB1D-4065-8AAA-05D44557431D}|Coursivia_AiSD.vcxproj|C:\\Users\\Melifest\\Documents\\GitHub\\Curs_AiSD\\Coursivia_AiSD.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{C3CEEA25-EB1D-4065-8AAA-05D44557431D}|Coursivia_AiSD.vcxproj|solutionrelative:Coursivia_AiSD.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+    }
+  ],
+  "DocumentGroupContainers": [
+    {
+      "Orientation": 0,
+      "VerticalTabListWidth": 256,
+      "DocumentGroups": [
+        {
+          "DockedWidth": 200,
+          "SelectedChildIndex": 0,
+          "Children": [
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "Coursivia_AiSD.cpp",
+              "DocumentMoniker": "C:\\Users\\Melifest\\Documents\\GitHub\\Curs_AiSD\\Coursivia_AiSD.cpp",
+              "RelativeDocumentMoniker": "Coursivia_AiSD.cpp",
+              "ToolTip": "C:\\Users\\Melifest\\Documents\\GitHub\\Curs_AiSD\\Coursivia_AiSD.cpp",
+              "RelativeToolTip": "Coursivia_AiSD.cpp",
+              "ViewState": "AgIAAPYAAAAAAAAAAAAUwAMBAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
+              "WhenOpened": "2024-12-16T16:03:35.159Z",
+              "EditorCaption": ""
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
